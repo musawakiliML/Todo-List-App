@@ -2,15 +2,17 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 )
 
-func main() {
-	// Variable declaration
-	var todo1 = "Learning Go!"
-	var todo2 = "Building a project in Go"
-	var todo3 = "Writing a blog on each project"
+// Variable declaration
+var todo1 = "Learning Go!"
+var todo2 = "Building a project in Go"
+var todo3 = "Writing a blog on each project"
 
-	var todoItems = []string{todo1, todo2, todo3}
+var todoItems = []string{todo1, todo2, todo3}
+
+func main() {
 
 	fmt.Printf("#### Welcome to my Go Learning Project ####\n")
 
@@ -23,6 +25,27 @@ func main() {
 
 	printTodos(todoItems)
 
+	// Creating Http Server to serve todo list
+
+	http.HandleFunc("/", helloUser)
+	http.HandleFunc("/tasks", showTasks)
+
+	http.ListenAndServe(":8080", nil)
+
+}
+
+// Http Server Function
+
+func helloUser(writer http.ResponseWriter, request *http.Request) {
+	var greeting = "Hello, Welcome to my Go Learning Project"
+	fmt.Fprintln(writer, greeting)
+}
+
+func showTasks(writer http.ResponseWriter, request *http.Request) {
+
+	for _, task := range todoItems {
+		fmt.Fprintln(writer, task)
+	}
 }
 
 func printTodos(todoItems []string) {
