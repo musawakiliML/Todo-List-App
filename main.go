@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"net/http"
 )
 
 func main() {
@@ -12,6 +11,8 @@ func main() {
 	var todo3 = "Writing a blog on each project"
 
 	var todoItems = []string{todo1, todo2, todo3}
+
+	fmt.Printf("#### Welcome to my Go Learning Project ####\n")
 
 	// Call function for Displaying Todos
 	printTodos(todoItems)
